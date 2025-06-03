@@ -16,7 +16,6 @@ def main(page: ft.Page):
         fit=ft.ImageFit.CONTAIN,
     )
 
-
     inicio_container = ft.Container(
         content=ft.Column(
             [titulo, imagen_portada],
@@ -46,6 +45,7 @@ def main(page: ft.Page):
 
 
     def cambiar_pagina(index):
+
         page.clean()
         page.add(page.navigation_bar)
 
@@ -62,6 +62,7 @@ def main(page: ft.Page):
             )
 
         elif index == 1:
+
             search_container = ft.Container(
                 content=ft.Column(
                     [ft.TextField(label="Buscar"), ft.ElevatedButton("Buscar")],
@@ -74,9 +75,10 @@ def main(page: ft.Page):
             page.add(search_container)
 
         elif index == 2:
+
             config_container = ft.Container(
                 content=ft.Column(
-                    [ft.Text("Ajustes"), ft.Slider(value=50)],
+                    [ft.TextField("Ajustes"), ft.Slider(value=50, min=0, max=100)],
                     alignment=ft.MainAxisAlignment.START,
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 ),
@@ -84,6 +86,7 @@ def main(page: ft.Page):
                 bgcolor=ft.Colors.WHITE,
             )
             page.add(config_container)
+        page.update()
 
 
     page.navigation_bar = ft.NavigationBar(
@@ -92,7 +95,7 @@ def main(page: ft.Page):
             ft.NavigationBarDestination(icon=ft.Icons.SEARCH, label="Buscar"),
             ft.NavigationBarDestination(icon=ft.Icons.SETTINGS, label="Configuración")
         ],
-        on_change=lambda e: cambiar_pagina(e.control.selected_index)
+        on_change=lambda e: cambiar_pagina(int(e.data))
     )
 
 
